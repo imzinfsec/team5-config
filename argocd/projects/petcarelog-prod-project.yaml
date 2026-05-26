@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: petcarelog-prod
+  namespace: argocd
+spec:
+  description: PetCareLog Prod Environment Project
+
+  sourceRepos:
+    - https://github.com/CLD-05/team5-config.git
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: prod
+    - server: https://kubernetes.default.svc
+      namespace: argocd
+    - server: https://kubernetes.default.svc
+      namespace: monitoring
+
+  # 클러스터 리소스 허용 범위
+  # TODO: 실제 운영 배포 시 필요한 kind만 명시적으로 제한할 것
+  # 예시:
+  # - group: "apps"
+  #   kind: Deployment
+  # - group: ""
+  #   kind: Service
+  clusterResourceWhitelist:
+    - group: ""  # 테스트 단계: 모든 클러스터 리소스 허용
+      kind: Namespace   # 운영 전환 시 필요한 리소스만 화이트리스트로 제한
+
+  # namespace 리소스 허용 범위
+  # TODO: 실제 운영 배포 시 Deployment, Service, ConfigMap 등 필요한 것만 허용할 것
+  namespaceResourceWhitelist:
+    - group: "*"  # 테스트 단계: 모든 namespace 리소스 허용
+      kind: "*"   # 운영 전환 시 최소 권한 원칙에 따라 제한 필요

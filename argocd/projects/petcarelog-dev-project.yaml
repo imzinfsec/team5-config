@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: petcarelog-dev
+  namespace: argocd
+spec:
+  description: PetCareLog Dev Environment Project
+  # 소스 레포지토리 허용
+  sourceRepos:
+    - https://github.com/CLD-05/team5-config.git
+  
+  # 배포 대상 클러스터 및 namespace 허용
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: dev
+    - server: https://kubernetes.default.svc
+      namespace: argocd
+    - server: https://kubernetes.default.svc
+      namespace: monitoring
+      
+  # 클러스터 리소스 허용 (CreateNamespace=true를 위해 Namespace 생성 권한 허용)
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+      
+  # namespace 리소스 허용 (전체)
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
