@@ -7,7 +7,7 @@ resources:
   - ../../base
   - namespace.yaml
   - serviceaccount.yaml
-  - configmap.yaml
+  - config.yaml
 
 patches:
   - path: patch-deployment.yaml
