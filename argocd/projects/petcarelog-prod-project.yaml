@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: petcarelog-prod
+  namespace: argocd
+spec:
+  description: PetCareLog Prod Environment Project
+
+  sourceRepos:
+    - https://github.com/CLD-05/team5-config.git
+
+  destinations:
+    - server: PROD_CLUSTER_SERVER_URL
+      namespace: petcarelog-prod
+
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"

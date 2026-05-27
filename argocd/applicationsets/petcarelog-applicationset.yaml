@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: petcarelog-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            cluster: DEV_CLUSTER_SERVER_URL
+            namespace: petcarelog-dev
+
+          - env: prod
+            cluster: PROD_CLUSTER_SERVER_URL
+            namespace: petcarelog-prod
+
+  template:
+    metadata:
+      name: 'petcarelog-{{env}}'
+    spec:
+      project: 'petcarelog-{{env}}'
+
+      source:
+        repoURL: 'https://github.com/CLD-05/team5-config.git'
+        targetRevision: HEAD
+        path: 'apps/petcarelog/overlays/{{env}}'
+
+      destination:
+        server: '{{cluster}}'
+        namespace: '{{namespace}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
