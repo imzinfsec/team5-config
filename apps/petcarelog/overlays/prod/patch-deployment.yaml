@@ -8,4 +8,4 @@ spec:
     spec:
       containers:
         - name: petcarelog
-          image: 194722398200.dkr.ecr.ap-northeast-2.amazonaws.com/team5-petcarelog-prod:f26870754b17e1cb4f5dbfdee91cea34b8be295f
+          image: 194722398200.dkr.ecr.ap-northeast-2.amazonaws.com/team5-petcarelog-prod:9caf6936e6f8a03fbce2c93bfa54c47a28368f10
