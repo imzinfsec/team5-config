@@ -8,11 +8,13 @@ spec:
     - list:
         elements:
           - env: dev
-            cluster: "https://A03190C7D9EE01AAEB6B4267879D819A.gr7.ap-northeast-2.eks.amazonaws.com"
+#            cluster: "https://A03190C7D9EE01AAEB6B4267879D819A.gr7.ap-northeast-2.eks.amazonaws.com"
+            cluster: "https://kubernetes.default.svc"
             namespace: petcarelog-dev
 
           - env: prod
-            cluster: "https://341C11627D397F927673C22681F5E6F6.gr7.ap-northeast-2.eks.amazonaws.com" 
+#            cluster: "https://341C11627D397F927673C22681F5E6F6.gr7.ap-northeast-2.eks.amazonaws.com" 
+            cluster: "https://kubernetes.default.svc"
             namespace: petcarelog-prod
 
   template:
