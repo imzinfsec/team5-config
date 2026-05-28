@@ -22,7 +22,7 @@ spec:
       project: 'petcarelog-{{env}}'
 
       source:
-        repoURL: 'https://github.com/CLD-05/team5-config.git'
+        repoURL: 'https://github.com/imzinfsec/team5-config.git'
         targetRevision: HEAD
         path: 'apps/petcarelog/overlays/{{env}}'
 

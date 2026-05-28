@@ -7,7 +7,7 @@ spec:
   description: PetCareLog Prod Environment Project
 
   sourceRepos:
-    - https://github.com/CLD-05/team5-config.git
+    - https://github.com/imzinfsec/team5-config.git
 
   destinations:
     - server: "https://341C11627D397F927673C22681F5E6F6.gr7.ap-northeast-2.eks.amazonaws.com"
