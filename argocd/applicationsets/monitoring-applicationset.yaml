@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: monitoring-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            cluster: "https://4F76F579D9F28BA8D65131DCA870D2F4.gr7.ap-northeast-2.eks.amazonaws.com"
+            namespace: monitoring
+            valuesFile: values-dev.yaml
+
+          - env: prod
+            cluster: "https://2467051C6CE1E002CF1634B37DFC3D77.gr7.ap-northeast-2.eks.amazonaws.com"
+            namespace: monitoring
+            valuesFile: values-prod.yaml
+
+  template:
+    metadata:
+      name: 'monitoring-{{env}}'
+    spec:
+      project: monitoring
+
+      sources:
+        - repoURL: https://prometheus-community.github.io/helm-charts
+          chart: kube-prometheus-stack
+          targetRevision: 58.7.2
+          helm:
+            valueFiles:
+              - $values/monitoring/kube-prometheus-stack/{{valuesFile}}
+
+        - repoURL: https://github.com/CLD-05/team5-config.git
+          targetRevision: main
+          ref: values
+
+      destination:
+        server: '{{cluster}}'
+        namespace: '{{namespace}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true

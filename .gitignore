@@ -6,7 +6,7 @@
 *.env
 
 # -------------------------------------------------------------------
-# Kubernetes secret files
+# Kubernetes Secret files
 # 실제 비밀번호/토큰/키가 들어간 secret manifest는 올리지 않기
 # 예시 파일만 Git에 올리기
 # -------------------------------------------------------------------
@@ -21,42 +21,84 @@
 !*secrets*.example.yml
 
 # -------------------------------------------------------------------
+# Grafana / Monitoring local secret files
+# values 파일은 올려도 되지만, 비밀번호가 들어간 secret 파일은 제외
+# -------------------------------------------------------------------
+grafana-admin-secret.yaml
+grafana-admin-secret.yml
+*grafana*secret*.yaml
+*grafana*secret*.yml
+
+!*grafana*secret*.example.yaml
+!*grafana*secret*.example.yml
+
+# -------------------------------------------------------------------
 # Kubeconfig / cluster access files
 # -------------------------------------------------------------------
 kubeconfig
 kubeconfig.*
 *.kubeconfig
 .kube/
+*.config
 
 # -------------------------------------------------------------------
-# Helm temporary files, if used later
+# Argo CD local/session files
 # -------------------------------------------------------------------
-charts/
-*.tgz
-Chart.lock
+.argocd/
+argocd-context
+argocd-token
+argocd-session
 
 # -------------------------------------------------------------------
-# Kustomize build output
+# Kustomize / kubectl build output
 # -------------------------------------------------------------------
 kustomize-output.yaml
 rendered.yaml
 manifest.yaml
 manifests.yaml
+all.yaml
+output.yaml
 
 # -------------------------------------------------------------------
-# ArgoCD local/session files, if any
+# Helm package / temporary files
+# charts/ 폴더는 Helm Chart를 Git에 올릴 수도 있으므로 제외하지 않음
 # -------------------------------------------------------------------
-.argocd/
-argocd-context
+*.tgz
+Chart.lock
 
 # -------------------------------------------------------------------
-# SSH keys / certificates
+# Terraform files, just in case
+# team5-config에는 보통 Terraform이 없지만 실수 방지용
 # -------------------------------------------------------------------
+.terraform/
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+crash.log
+crash.*.log
+
+# -------------------------------------------------------------------
+# AWS / credential files
+# -------------------------------------------------------------------
+.aws/
+credentials
+config
 *.pem
 *.key
 *.crt
 *.cer
 *.p12
+
+# -------------------------------------------------------------------
+# Local temporary files
+# -------------------------------------------------------------------
+*.tmp
+*.bak
+*.backup
+*.log
 
 # -------------------------------------------------------------------
 # OS files
@@ -71,11 +113,3 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
-
-# -------------------------------------------------------------------
-# Local temporary files
-# -------------------------------------------------------------------
-*.tmp
-*.bak
-*.backup
-*.log
