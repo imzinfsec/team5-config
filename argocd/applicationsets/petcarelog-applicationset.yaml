@@ -1,4 +1,4 @@
-## petcarelog-applicationset.yaml
+## team5-config/argocd/applicationsets/petcarelog-applicationset.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -8,16 +8,21 @@ spec:
   generators:
     - list:
         elements:
-          # 💡 dev 환경만 남기고 아래에 있던 prod 엘리먼트는 통째로 삭제했습니다.
+          # 🟢 개발계 배포 타겟
           - env: dev
             cluster: "https://kubernetes.default.svc"
             namespace: petcarelog-dev
+
+          # 🔵 운영계 배포 타겟 (추가완료!)
+          - env: prod
+            cluster: "https://kubernetes.default.svc"
+            namespace: petcarelog-prod
 
   template:
     metadata:
       name: 'petcarelog-{{env}}'
     spec:
-      project: 'petcarelog-{{env}}'
+      project: default
 
       source:
         repoURL: 'https://github.com/imzinfsec/team5-config.git'

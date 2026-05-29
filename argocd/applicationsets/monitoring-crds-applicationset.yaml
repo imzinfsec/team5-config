@@ -1,3 +1,4 @@
+## team5-config/argocd/applicationsets/monitoring-crds-applicationset.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -8,16 +9,15 @@ spec:
     - list:
         elements:
           - env: dev
-            cluster: "https://4F76F579D9F28BA8D65131DCA870D2F4.gr7.ap-northeast-2.eks.amazonaws.com"
-
+            cluster: "https://kubernetes.default.svc"
           - env: prod
-            cluster: "https://2467051C6CE1E002CF1634B37DFC3D77.gr7.ap-northeast-2.eks.amazonaws.com"
+            cluster: "https://kubernetes.default.svc"
 
   template:
     metadata:
       name: 'monitoring-crds-{{env}}'
     spec:
-      project: monitoring
+      project: default
 
       source:
         repoURL: https://prometheus-community.github.io/helm-charts

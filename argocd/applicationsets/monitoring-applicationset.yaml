@@ -1,3 +1,4 @@
+## team5-config/argocd/applicationsets/monitoring-applicationset.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -7,13 +8,15 @@ spec:
   generators:
     - list:
         elements:
+          # 🟢 개발계 환경 카드 설정
           - env: dev
-            cluster: "https://4F76F579D9F28BA8D65131DCA870D2F4.gr7.ap-northeast-2.eks.amazonaws.com"
+            cluster: "https://kubernetes.default.svc"
             namespace: monitoring
             valuesFile: values-dev.yaml
 
+          # 🔵 운영계 환경 카드 설정 (AWS 주소를 로컬 주소로 변경!)
           - env: prod
-            cluster: "https://2467051C6CE1E002CF1634B37DFC3D77.gr7.ap-northeast-2.eks.amazonaws.com"
+            cluster: "https://kubernetes.default.svc"
             namespace: monitoring
             valuesFile: values-prod.yaml
 
@@ -21,7 +24,7 @@ spec:
     metadata:
       name: 'monitoring-{{env}}'
     spec:
-      project: monitoring
+      project: default
 
       sources:
         - repoURL: https://prometheus-community.github.io/helm-charts
@@ -31,7 +34,8 @@ spec:
             valueFiles:
               - $values/monitoring/kube-prometheus-stack/{{valuesFile}}
 
-        - repoURL: https://github.com/CLD-05/team5-config.git
+        # 💡 팀 깃허브 주소를 대장님의 개인 깃허브 주소로 변경
+        - repoURL: https://github.com/imzinfsec/team5-config.git
           targetRevision: main
           ref: values
 
