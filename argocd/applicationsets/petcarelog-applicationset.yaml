@@ -2,12 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: petcarelog-applicationset
-  namespace: argocd
+  namespace: argocd 
 spec:
   generators:
     - list:
         elements:
           - env: dev
+<<<<<<< HEAD
 #            cluster: "https://A03190C7D9EE01AAEB6B4267879D819A.gr7.ap-northeast-2.eks.amazonaws.com"
             cluster: "https://kubernetes.default.svc"
             namespace: petcarelog-dev
@@ -15,6 +16,13 @@ spec:
           - env: prod
 #            cluster: "https://341C11627D397F927673C22681F5E6F6.gr7.ap-northeast-2.eks.amazonaws.com" 
             cluster: "https://kubernetes.default.svc"
+=======
+            cluster: "https://4F76F579D9F28BA8D65131DCA870D2F4.gr7.ap-northeast-2.eks.amazonaws.com"
+            namespace: petcarelog-dev
+
+          - env: prod
+            cluster: "https://2467051C6CE1E002CF1634B37DFC3D77.gr7.ap-northeast-2.eks.amazonaws.com" 
+>>>>>>> 0c573e67bb5cd7cb3bf901ce96f44e526de248b5
             namespace: petcarelog-prod
 
   template:
