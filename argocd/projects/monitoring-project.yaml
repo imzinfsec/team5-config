@@ -1,31 +1,21 @@
+## team5-config/argocd/projects/monitoring-project.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: monitoring
   namespace: argocd
 spec:
-  description: Monitoring stack for dev and prod EKS
-
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: monitoring
-  namespace: argocd
-spec:
-  description: Monitoring stack for dev and prod EKS
+  description: Monitoring stack for local VirtualBox k8s cluster
 
   sourceRepos:
     - https://prometheus-community.github.io/helm-charts
-    - https://github.com/CLD-05/team5-config.git
+    - https://github.com/imzinfsec/team5-config.git # 💡 대장님 개인 깃허브 주소로 변경
 
   destinations:
-    - server: "https://4F76F579D9F28BA8D65131DCA870D2F4.gr7.ap-northeast-2.eks.amazonaws.com"
+    # 💡 AWS 주소 4개를 싹 청소하고 로컬 클러스터 통로 하나만 시원하게 뚫어줍니다!
+    - server: "https://kubernetes.default.svc"
       namespace: monitoring
-    - server: "https://4F76F579D9F28BA8D65131DCA870D2F4.gr7.ap-northeast-2.eks.amazonaws.com"
-      namespace: kube-system
-    - server: "https://2467051C6CE1E002CF1634B37DFC3D77.gr7.ap-northeast-2.eks.amazonaws.com"
-      namespace: monitoring
-    - server: "https://2467051C6CE1E002CF1634B37DFC3D77.gr7.ap-northeast-2.eks.amazonaws.com"
+    - server: "https://kubernetes.default.svc"
       namespace: kube-system
 
   clusterResourceWhitelist:

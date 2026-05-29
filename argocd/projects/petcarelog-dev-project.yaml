@@ -1,4 +1,4 @@
-## petcarelog-dev-project.yaml
+## team5-config/argocd/projects/petcarelog-dev-project.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -11,7 +11,6 @@ spec:
     - https://github.com/imzinfsec/team5-config.git
 
   destinations:
-    # 💡 AWS EKS 주소를 지우고, 로컬 자기 자신을 가리키는 내부 주소로 변경합니다!
     - server: "https://kubernetes.default.svc"
       namespace: petcarelog-dev
 

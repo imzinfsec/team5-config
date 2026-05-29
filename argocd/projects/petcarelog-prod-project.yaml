@@ -1,3 +1,4 @@
+## team5-config/argocd/projects/petcarelog-prod-project.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -10,7 +11,8 @@ spec:
     - https://github.com/imzinfsec/team5-config.git
 
   destinations:
-    - server: "https://2467051C6CE1E002CF1634B37DFC3D77.gr7.ap-northeast-2.eks.amazonaws.com"
+    # 💡 운영계(prod)도 AWS EKS 주소를 걷어내고 가상머신 내부 방으로 정밀 조준!
+    - server: "https://kubernetes.default.svc"
       namespace: petcarelog-prod
 
   clusterResourceWhitelist:
