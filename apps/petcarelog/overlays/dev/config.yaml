@@ -1,17 +1,24 @@
+## apps/petcarelog/base/dev/config.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: petcarelog-config
   namespace: petcarelog-dev
 data:
-  DB_HOST: "team5-petcarelog-dev-rds.cx482c6a63zp.ap-northeast-2.rds.amazonaws.com"
+  # 💡 [DB 설정] AWS RDS 주소를 지우고, 로컬 쿠버네티스에 띄운 DB 서비스명이나 가상머신 IP를 적습니다.
+  # 만약 K8s 내부에 DB를 같이 띄우실 거라면 보통 서비스명인 "mysql-service" 형태로 적어둡니다.
+  DB_HOST: "mysql-service" 
   DB_PORT: "3306"
   DB_NAME: "petcarelog_dev"
 
-  REDIS_HOST: "team5-petcarelog-dev-redis.50cal1.ng.0001.apn2.cache.amazonaws.com"
+  # 💡 [Redis 설정] AWS ElastiCache 주소를 지우고, 로컬 K8s 내부 Redis 서비스명을 적습니다.
+  REDIS_HOST: "redis-service"
   REDIS_PORT: "6379"
   REDIS_SSL_ENABLED: "false"
 
+  # 💡 [S3 설정] 로컬에는 AWS S3가 없으므로 로컬 파일 저장소 구조로 앱이 돌아가야 합니다.
+  # 우선은 에러가 나지 않도록 아무 문자나 적어두거나 기존 값을 놔두되, 
+  # 실제 앱 소스코드에서 S3 연결 실패로 크래시가 난다면 로컬용 저장소(MinIO 등)를 띄우거나 기능을 꺼야 할 수 있습니다.
   AWS_REGION: "ap-northeast-2"
-  S3_BUCKET_NAME: "team5-petcarelog-dev-images-194722398200"
+  S3_BUCKET_NAME: "local-dummy-bucket"
   S3_PET_IMAGE_PREFIX: "pets"
